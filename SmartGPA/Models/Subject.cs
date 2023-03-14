@@ -14,7 +14,7 @@ namespace SmartGPA.Models
         public int Credits { get; set; }
         public string Grade { get; set; }
 
-        public double Points{ get; set; }
-        
+        public double Points { get; set; }
+
     }
 }
