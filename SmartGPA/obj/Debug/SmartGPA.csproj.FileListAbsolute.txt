@@ -9,3 +9,4 @@ E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.GenerateResource.cach
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.CoreCompileInputs.cache
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.exe
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.pdb
+E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Form2.resources

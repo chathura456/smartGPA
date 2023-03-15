@@ -27,7 +27,7 @@ namespace SmartGPA
             // Create the columns for the DataGridView
 
             dataGridView1.Columns.Remove("Year");
-            dataGridView1.Columns.Remove("Semester");
+            //dataGridView1.Columns.Remove("Semester");
         }
 
         private void credit_dropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,12 +43,13 @@ namespace SmartGPA
         private void button2_Click(object sender, EventArgs e)
         {
             credit = credit_dropdown.SelectedItem.ToString();
-            label1.Text = credit;
+
+           
 
             Subject subject = new Subject
             {
-                Year = 1,
-                Semester = 2,
+                Year = int.Parse(year_input.Text.Trim()),
+                Semester = int.Parse(sem_input.Text.Trim()),
                 Name = name_input.Text.Trim(),
                 Credits = int.Parse(credit),
                 Grade = grade,
@@ -58,9 +59,9 @@ namespace SmartGPA
             // Add the subject to the list and bind the list to the DataGridView
             subjects.Add(subject);
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = subjects; 
+            //dataGridView1.DataSource = subjects; 
 
-            /*
+            
             // Group the data by year and semester
             var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
 
@@ -83,7 +84,7 @@ namespace SmartGPA
                     row.SetValues(s.Name, s.Credits, s.Grade, s.Points);
                     dataGridView1.Rows.Add(row);
                 }
-            }*/
+            }
 
             // Calculate and display the GPA
             double totalPoints = subjects.Sum(s => s.Credits * s.Points);

@@ -30,13 +30,14 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.submit_button = new System.Windows.Forms.Panel();
+            this.gpa_label = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.name_input = new System.Windows.Forms.TextBox();
             this.credit_dropdown = new System.Windows.Forms.ComboBox();
             this.grade_dropdown = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.gpa_label = new System.Windows.Forms.Label();
+            this.year_input = new System.Windows.Forms.TextBox();
+            this.sem_input = new System.Windows.Forms.TextBox();
             this.submit_button.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -52,19 +53,30 @@
             // 
             // submit_button
             // 
+            this.submit_button.Controls.Add(this.sem_input);
+            this.submit_button.Controls.Add(this.year_input);
             this.submit_button.Controls.Add(this.gpa_label);
             this.submit_button.Controls.Add(this.dataGridView1);
             this.submit_button.Controls.Add(this.button2);
             this.submit_button.Controls.Add(this.name_input);
             this.submit_button.Controls.Add(this.credit_dropdown);
             this.submit_button.Controls.Add(this.grade_dropdown);
-            this.submit_button.Controls.Add(this.label1);
             this.submit_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.submit_button.Location = new System.Drawing.Point(0, 0);
             this.submit_button.Name = "submit_button";
             this.submit_button.Size = new System.Drawing.Size(800, 450);
             this.submit_button.TabIndex = 1;
             this.submit_button.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // gpa_label
+            // 
+            this.gpa_label.AutoSize = true;
+            this.gpa_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gpa_label.Location = new System.Drawing.Point(385, 170);
+            this.gpa_label.Name = "gpa_label";
+            this.gpa_label.Size = new System.Drawing.Size(59, 25);
+            this.gpa_label.TabIndex = 6;
+            this.gpa_label.Text = "GPA";
             // 
             // dataGridView1
             // 
@@ -88,7 +100,7 @@
             // 
             // name_input
             // 
-            this.name_input.Location = new System.Drawing.Point(194, 59);
+            this.name_input.Location = new System.Drawing.Point(256, 59);
             this.name_input.Name = "name_input";
             this.name_input.Size = new System.Drawing.Size(188, 20);
             this.name_input.TabIndex = 3;
@@ -111,24 +123,19 @@
             this.grade_dropdown.TabIndex = 1;
             this.grade_dropdown.SelectedIndexChanged += new System.EventHandler(this.grade_dropdown_SelectedIndexChanged);
             // 
-            // label1
+            // year_input
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.year_input.Location = new System.Drawing.Point(12, 60);
+            this.year_input.Name = "year_input";
+            this.year_input.Size = new System.Drawing.Size(100, 20);
+            this.year_input.TabIndex = 7;
             // 
-            // gpa_label
+            // sem_input
             // 
-            this.gpa_label.AutoSize = true;
-            this.gpa_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpa_label.Location = new System.Drawing.Point(385, 170);
-            this.gpa_label.Name = "gpa_label";
-            this.gpa_label.Size = new System.Drawing.Size(59, 25);
-            this.gpa_label.TabIndex = 6;
-            this.gpa_label.Text = "GPA";
+            this.sem_input.Location = new System.Drawing.Point(133, 60);
+            this.sem_input.Name = "sem_input";
+            this.sem_input.Size = new System.Drawing.Size(100, 20);
+            this.sem_input.TabIndex = 8;
             // 
             // Form1
             // 
@@ -154,10 +161,11 @@
         private System.Windows.Forms.TextBox name_input;
         private System.Windows.Forms.ComboBox credit_dropdown;
         private System.Windows.Forms.ComboBox grade_dropdown;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label gpa_label;
+        private System.Windows.Forms.TextBox sem_input;
+        private System.Windows.Forms.TextBox year_input;
     }
 }
 
