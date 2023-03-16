@@ -10,3 +10,4 @@ E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.CoreCompileInputs.cac
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.exe
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.pdb
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Form2.resources
+E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.HomeUi.resources
