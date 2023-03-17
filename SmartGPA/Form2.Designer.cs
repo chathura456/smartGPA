@@ -31,25 +31,25 @@
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.year_panel = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.semester_dropdown = new System.Windows.Forms.ComboBox();
             this.year_dropdown = new System.Windows.Forms.ComboBox();
             this.year_confirm = new System.Windows.Forms.Button();
             this.subject_panel = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.year_label = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.subject_button = new System.Windows.Forms.Button();
             this.grade_dropdown = new System.Windows.Forms.ComboBox();
             this.credit_dropdown = new System.Windows.Forms.ComboBox();
             this.name_input = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.gpa_label = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.year_panel.SuspendLayout();
             this.subject_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -59,10 +59,9 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Blue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.BackColor = System.Drawing.SystemColors.Control;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button1.Location = new System.Drawing.Point(306, 179);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 36);
@@ -83,6 +82,26 @@
             this.year_panel.Name = "year_panel";
             this.year_panel.Size = new System.Drawing.Size(644, 138);
             this.year_panel.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(347, 47);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 16);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Semester";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(104, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Year";
             // 
             // label1
             // 
@@ -115,10 +134,9 @@
             // 
             // year_confirm
             // 
-            this.year_confirm.BackColor = System.Drawing.Color.Blue;
-            this.year_confirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.year_confirm.BackColor = System.Drawing.SystemColors.Control;
             this.year_confirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.year_confirm.ForeColor = System.Drawing.Color.White;
+            this.year_confirm.ForeColor = System.Drawing.SystemColors.ControlText;
             this.year_confirm.Location = new System.Drawing.Point(270, 87);
             this.year_confirm.Name = "year_confirm";
             this.year_confirm.Size = new System.Drawing.Size(94, 31);
@@ -145,6 +163,36 @@
             this.subject_panel.Size = new System.Drawing.Size(660, 288);
             this.subject_panel.TabIndex = 2;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(326, 99);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 16);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Grade";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(67, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Credit";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(67, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 16);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Model Name";
+            // 
             // year_label
             // 
             this.year_label.AutoSize = true;
@@ -165,9 +213,9 @@
             // 
             // subject_button
             // 
-            this.subject_button.BackColor = System.Drawing.Color.Blue;
+            this.subject_button.BackColor = System.Drawing.SystemColors.Control;
             this.subject_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.subject_button.ForeColor = System.Drawing.Color.White;
+            this.subject_button.ForeColor = System.Drawing.SystemColors.ControlText;
             this.subject_button.Location = new System.Drawing.Point(289, 132);
             this.subject_button.Name = "subject_button";
             this.subject_button.Size = new System.Drawing.Size(75, 24);
@@ -201,71 +249,19 @@
             this.name_input.Size = new System.Drawing.Size(366, 20);
             this.name_input.TabIndex = 0;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(104, 47);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Year";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(347, 47);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Semester";
-            // 
             // panel2
             // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.AutoScroll = true;
+            this.panel2.AutoSize = true;
             this.panel2.Controls.Add(this.gpa_label);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.year_panel);
             this.panel2.Controls.Add(this.subject_panel);
             this.panel2.Location = new System.Drawing.Point(13, 13);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(759, 416);
+            this.panel2.Size = new System.Drawing.Size(759, 498);
             this.panel2.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(67, 50);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Model Name";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(67, 99);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Credit";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(326, 99);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 16);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Grade";
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // gpa_label
             // 
@@ -277,6 +273,10 @@
             this.gpa_label.Size = new System.Drawing.Size(0, 29);
             this.gpa_label.TabIndex = 3;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -284,7 +284,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel2);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "Home";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.year_panel.ResumeLayout(false);
             this.year_panel.PerformLayout();
@@ -295,6 +295,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

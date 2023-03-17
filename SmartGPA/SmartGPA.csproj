@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesome.Sharp, Version=6.3.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.6.3.0\lib\net48\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +50,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -59,11 +66,29 @@
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Pages\Grades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\Grades.Designer.cs">
+      <DependentUpon>Grades.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomeUi.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pages\HomeUi.Designer.cs">
       <DependentUpon>HomeUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\Info.Designer.cs">
+      <DependentUpon>Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Grades.resx">
+      <DependentUpon>Grades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\HomeUi.resx">
       <DependentUpon>HomeUi.cs</DependentUpon>
@@ -87,6 +115,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -11,3 +11,6 @@ E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.exe
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.pdb
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Form2.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.HomeUi.resources
+E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Grades.resources
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\FontAwesome.Sharp.dll
+E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.CopyComplete

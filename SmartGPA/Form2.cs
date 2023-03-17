@@ -29,6 +29,21 @@ namespace SmartGPA
 
             dataGridView1.Columns.Remove("Year");
             dataGridView1.Columns.Remove("Semester");
+ 
+        }
+
+        private void LoadTheme()
+        {
+            foreach (Control btns in this.Controls)
+            {
+                if (btns.GetType() == typeof(Button))
+                {
+                    Button btn = (Button)btns;
+                    btn.BackColor = ThemeColor.PrimaryColor;
+                    btn.ForeColor = Color.White;
+                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                }
+            }
         }
 
         //form load
@@ -81,6 +96,8 @@ namespace SmartGPA
             semester_dropdown.Items.Add(2);
             semester_dropdown.Items.Add(3);
             semester_dropdown.Items.Add(4);
+
+            LoadTheme();
 
         }
 
