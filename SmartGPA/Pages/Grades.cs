@@ -15,6 +15,7 @@ namespace SmartGPA.Pages
         public Grades()
         {
             InitializeComponent();
+            LoadTheme();
         }
 
         private void Grades_Load(object sender, EventArgs e)
@@ -31,7 +32,9 @@ namespace SmartGPA.Pages
                     Button btn = (Button)btns;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
-                   // btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                    btn.FlatStyle = FlatStyle.Flat;
+                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                   
                 }
             }
         }

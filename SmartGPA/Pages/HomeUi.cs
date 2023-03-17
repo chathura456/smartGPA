@@ -18,6 +18,7 @@ namespace SmartGPA.Pages
         private int tempIndex;
         private Form activeForm;
 
+
         public HomeUi()
         {
             InitializeComponent();
@@ -66,7 +67,7 @@ namespace SmartGPA.Pages
                     currentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     panelTitleBox.BackColor= color;
                     ThemeColor.PrimaryColor = color;
-                    ThemeColor.SecondaryColor = color;  
+                    ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color,-0.3);  
                 }
             }
         }
@@ -105,7 +106,7 @@ namespace SmartGPA.Pages
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form2(), sender);
+            OpenChildForm(new Form2(this), sender);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -125,7 +126,7 @@ namespace SmartGPA.Pages
 
         private void HomeUi_Load(object sender, EventArgs e)
         {
-            activeForm = new Form2();
+            activeForm = new Form2(this);
             activeForm.TopLevel = false;
             activeForm.FormBorderStyle = FormBorderStyle.None;
             activeForm.Dock = DockStyle.Fill;
@@ -157,14 +158,9 @@ namespace SmartGPA.Pages
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-        private void HomeUi_Resize(object sender, EventArgs e)
+        public void SetGpaLabelText(string text)
         {
-
-        }
-
-        private void AdjustForm()
-        {
-           
+            gpa_label.Text = text;
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)

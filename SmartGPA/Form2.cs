@@ -1,4 +1,5 @@
 ﻿using SmartGPA.Models;
+using SmartGPA.Pages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,10 +17,12 @@ namespace SmartGPA
         public string grade, name;
         public int year, semester, credit;
         private List<Subject> subjects;
+        private HomeUi _form1;
 
-        public Form2()
+        public Form2(HomeUi form1)
         {
             InitializeComponent();
+            _form1 = form1;
             // Initialize the subjects list and bind it to the DataGridView
             subjects = new List<Subject>();
             dataGridView1.DataSource = subjects;
@@ -32,6 +35,7 @@ namespace SmartGPA
  
         }
 
+       
         private void LoadTheme()
         {
             foreach (Control btns in this.Controls)
@@ -166,7 +170,9 @@ namespace SmartGPA
                 double totalPoints = subjects.Sum(s => s.Credits * s.Points);
                 int totalCredits = subjects.Sum(s => s.Credits);
                 double gpa = totalPoints / totalCredits;
-                gpa_label.Text = $"Your GPA: {gpa.ToString("F2")}";
+                //gpa_label.Text = $"Your GPA: {gpa.ToString("F2")}";
+
+                _form1.SetGpaLabelText($"{gpa.ToString("F2")}");
             }
         }
 

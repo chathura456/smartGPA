@@ -205,10 +205,15 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(24, 172);
+            this.dataGridView1.Location = new System.Drawing.Point(70, 172);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(592, 113);
+            this.dataGridView1.Size = new System.Drawing.Size(464, 113);
             this.dataGridView1.TabIndex = 4;
             // 
             // subject_button
@@ -258,9 +263,9 @@
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.year_panel);
             this.panel2.Controls.Add(this.subject_panel);
-            this.panel2.Location = new System.Drawing.Point(13, 13);
+            this.panel2.Location = new System.Drawing.Point(-51, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(759, 498);
+            this.panel2.Size = new System.Drawing.Size(712, 498);
             this.panel2.TabIndex = 4;
             // 
             // gpa_label
@@ -281,7 +286,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(674, 450);
             this.Controls.Add(this.panel2);
             this.Name = "Form2";
             this.Text = "Home";

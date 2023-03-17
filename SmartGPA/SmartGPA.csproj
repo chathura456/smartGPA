@@ -130,12 +130,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\home %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\grade.png" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gear %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
