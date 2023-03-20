@@ -42,6 +42,9 @@ namespace SmartGPA.Pages
             add_results.BackColor = ThemeColor.PrimaryColor;
             add_year.BackColor = ThemeColor.ChangeColorBrightness(ThemeColor.PrimaryColor, +0.3);
 
+            this.dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
+
             //year dropdown item add
             year_dropdown.Items.Clear();
             year_dropdown.Items.Add(1);
@@ -173,6 +176,31 @@ namespace SmartGPA.Pages
                 subject_panel.Visible = true;
                 year_panel.Visible = false;
                 year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+                if (subjects != null)
+                {
+                    UpdateDataGridView();
+                    var groups1 = subjects.GroupBy(s => new { s.Year, s.Semester });
+                    foreach (var group in groups1)
+                    {
+                        if ((group.Key.Year) == year && (group.Key.Semester) == semester)
+                        {
+
+                        }
+                        else
+                        {
+                            Label l1 = new Label();
+                            l1.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+                            l1.Show();
+                        }
+                    }
+                }
+                else 
+                {
+                    Label l1 = new Label();
+                    l1.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+                    l1.Show();
+                }
+                
             }
         }
 
@@ -269,16 +297,20 @@ namespace SmartGPA.Pages
                 //subheadingRow.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
                 dataGridView1.Rows.Add(subheadingRow);*/
 
-                // Add the subjects in the group as regular rows
-                foreach (Subject s in group)
+                if ((group.Key.Year) == year && (group.Key.Semester) == semester)
                 {
-                    DataGridViewRow row = new DataGridViewRow();
-                    row.CreateCells(dataGridView1);
-                    row.SetValues(s.Name, s.Credits, s.Grade, s.Points);
-                    dataGridView1.Rows.Add(row);
+                    foreach (Subject s in group)
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.CreateCells(dataGridView1);
+                        row.SetValues(s.Name, s.Credits, s.Grade, s.Points);
+                        dataGridView1.Rows.Add(row);
+                    }
+
+                    // Add the subjects in the group as regular rows
+
                 }
             }
-
         }
     }
 }

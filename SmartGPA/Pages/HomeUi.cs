@@ -106,7 +106,7 @@ namespace SmartGPA.Pages
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form2(this), sender);
+            OpenChildForm(new Home(this), sender);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -126,7 +126,7 @@ namespace SmartGPA.Pages
 
         private void HomeUi_Load(object sender, EventArgs e)
         {
-            activeForm = new Form2(this);
+            activeForm = new Home(this);
             activeForm.TopLevel = false;
             activeForm.FormBorderStyle = FormBorderStyle.None;
             activeForm.Dock = DockStyle.Fill;
@@ -161,6 +161,11 @@ namespace SmartGPA.Pages
         public void SetGpaLabelText(string text)
         {
             gpa_label.Text = text;
+        }
+
+        public string GetGpaLabelText()
+        {
+            return gpa_label.Text;
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
