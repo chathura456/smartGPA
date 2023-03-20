@@ -92,10 +92,10 @@ namespace SmartGPA.Pages
             semester = 0;
 
             // Add column headers to the DataGridView
-            dataGridView1.Columns.Add("Name", "Name");
+           /* dataGridView1.Columns.Add("Name", "Name");
             dataGridView1.Columns.Add("Credits", "Credits");
             dataGridView1.Columns.Add("Grade", "Grade");
-            dataGridView1.Columns.Add("Points", "Points");
+            dataGridView1.Columns.Add("Points", "Points");*/
 
         }
 
@@ -249,7 +249,7 @@ namespace SmartGPA.Pages
             dataGridView1.Rows.Clear();
 
             // Add the rows for each subject in the list
-            foreach (var subject in subjects)
+           /* foreach (var subject in subjects)
             {
                 dataGridView1.Rows.Add(
                     subject.Name,
@@ -257,6 +257,26 @@ namespace SmartGPA.Pages
                     subject.Grade,
                     subject.Points
                 );
+            }*/
+
+            var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
+            foreach (var group in groups)
+            {
+                /*DataGridViewRow subheadingRow = new DataGridViewRow();
+                subheadingRow.CreateCells(dataGridView1);
+                //subheadingRow.SetValues($"Year {group.Key.Year}, Semester {group.Key.Semester}");
+                subheadingRow.Cells[0].Dispose();
+                //subheadingRow.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
+                dataGridView1.Rows.Add(subheadingRow);*/
+
+                // Add the subjects in the group as regular rows
+                foreach (Subject s in group)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(dataGridView1);
+                    row.SetValues(s.Name, s.Credits, s.Grade, s.Points);
+                    dataGridView1.Rows.Add(row);
+                }
             }
 
         }
