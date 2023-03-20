@@ -199,7 +199,7 @@
             // 
             // panelTitleBox
             // 
-            this.panelTitleBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.panelTitleBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.panelTitleBox.Controls.Add(this.btnMaximize);
             this.panelTitleBox.Controls.Add(this.btnClose);
             this.panelTitleBox.Controls.Add(this.btnMinimize);

@@ -65,7 +65,7 @@ namespace SmartGPA.Pages
                     currentButton.BackColor = color;
                     currentButton.ForeColor = Color.White;
                     currentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    panelTitleBox.BackColor= color;
+                    //panelTitleBox.BackColor= color;
                     ThemeColor.PrimaryColor = color;
                     ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color,-0.3);  
                 }
@@ -111,7 +111,7 @@ namespace SmartGPA.Pages
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Pages.Grades(), sender);
+            OpenChildForm(new Pages.Grades(this), sender);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -141,7 +141,7 @@ namespace SmartGPA.Pages
             currentButton.BackColor = color;
             currentButton.ForeColor = Color.White;
             currentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            panelTitleBox.BackColor = color;
+            //panelTitleBox.BackColor = color;
             ThemeColor.PrimaryColor = color;
             ThemeColor.SecondaryColor = color;
         }
@@ -170,7 +170,7 @@ namespace SmartGPA.Pages
 
         private void btnMaximize_Click(object sender, EventArgs e)
         {
-            if(this.WindowState == FormWindowState.Normal)
+            if(WindowState == FormWindowState.Normal)
             {
                 this.WindowState = FormWindowState.Maximized;
             }
