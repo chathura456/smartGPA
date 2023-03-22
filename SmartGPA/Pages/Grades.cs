@@ -211,7 +211,6 @@ namespace SmartGPA.Pages
 
         int top =178;
         int left = 97;
-        int count = 0;
 
         public void labelListLoad()
         {
@@ -281,26 +280,6 @@ namespace SmartGPA.Pages
             }
         }
 
-        public void newLabelCreate1(int year0, int semester0)
-        {
-            count++;
-            for(int i=0; i<count; i++)
-            {
-                 Label l1 = new Label();
-            year_panel.Controls.Add(l1);
-
-                l1.Text = "Year 0" + year0 + " Semester 0" + semester0 + " Results";
-
-            l1.AutoSize = true;
-            l1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            l1.Location = new System.Drawing.Point(left, top);
-            l1.Name = "label7";
-            l1.Size = new System.Drawing.Size(198, 26);
-                top += 50;
-                count--;
-            }  
-        }
-
         public void newLabelCreate(int year0, int semester0)
         {
             // Check if the label already exists in the panel
@@ -322,8 +301,36 @@ namespace SmartGPA.Pages
             l1.Location = new System.Drawing.Point(left, top);
             l1.Name = "label7";
             l1.Size = new System.Drawing.Size(198, 26);
+            l1.Click += new EventHandler(newLabelClick);
+
+            // Add the year and semester values to the Tag property of the label
+            l1.Tag = new Tuple<int, int>(year0, semester0);
+
 
             top += 50;
+        }
+
+        private void newLabelClick(object sender, EventArgs e)
+        {
+            Label clickedLabel = (Label)sender;
+            // Get the year and semester values from the Tag property of the label
+            Tuple<int, int> values = (Tuple<int, int>)clickedLabel.Tag;
+            year = values.Item1;
+            semester = values.Item2;
+
+            subject_panel.Visible = true;
+            year_panel.Visible = false;
+            year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+            if (subjects != null && subjects.Any())
+            {
+                UpdateDataGridView();
+
+            }
+            else
+            {
+                //newLabelCreate();
+
+            }
         }
 
 
