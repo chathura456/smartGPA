@@ -33,19 +33,14 @@ namespace SmartGPA.Pages
             // Initialize the subjects list and bind it to the DataGridView
             //subjects = new List<Subject>();
             loadFileData= new LoadFileData();
-           /* dataGridView1.DataSource = subjects;
-            dataGridView1.AutoGenerateColumns = false;
-
-            // Create the columns for the DataGridView
-
-            dataGridView1.Columns.Remove("Year");
-            dataGridView1.Columns.Remove("Semester");*/
         }
 
         private void Grades_Load(object sender, EventArgs e)
         {
            loadFileData.LoadData();
             subjects =loadFileData.GetSubjects();
+
+            
 
             year_confirm.BackColor = ThemeColor.PrimaryColor;
             add_results.BackColor = ThemeColor.PrimaryColor;
@@ -149,7 +144,7 @@ namespace SmartGPA.Pages
                 }
 
 
-
+                /*
 
                 // Calculate and display the GPA
                 double totalPoints = subjects.Sum(s => s.Credits * s.Points);
@@ -157,7 +152,7 @@ namespace SmartGPA.Pages
                  double gpa = totalPoints / totalCredits;
                  //gpa_label.Text = $"Your GPA: {gpa.ToString("F2")}";
 
-                 _form1.SetGpaLabelText($"{gpa.ToString("F2")}");
+                 _form1.SetGpaLabelText($"{gpa.ToString("F2")}");*/
 
                 // Update the DataGridView with the list of subjects
                 UpdateDataGridView();
@@ -332,6 +327,7 @@ namespace SmartGPA.Pages
 
             // Load the data from the CSV file
             loadFileData.LoadData();
+            _form1.SetGpaLabelText(loadFileData.CalculateGPA());
 
             // Add the rows for each subject in the list
             /* foreach (var subject in subjects)
@@ -370,6 +366,7 @@ namespace SmartGPA.Pages
 
         }
 
+       
 
     }
 }

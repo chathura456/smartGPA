@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartGPA.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,12 +18,14 @@ namespace SmartGPA.Pages
         private Random random;
         private int tempIndex;
         private Form activeForm;
+        private LoadFileData loadFileData;
 
 
         public HomeUi()
         {
             InitializeComponent();
             random= new Random();
+            loadFileData = new LoadFileData();
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -144,6 +147,7 @@ namespace SmartGPA.Pages
             //panelTitleBox.BackColor = color;
             ThemeColor.PrimaryColor = color;
             ThemeColor.SecondaryColor = color;
+            //SetGpaLabelText(loadFileData.CalculateGPA());
         }
 
         private void panelTitleBox_MouseDown(object sender, MouseEventArgs e)
