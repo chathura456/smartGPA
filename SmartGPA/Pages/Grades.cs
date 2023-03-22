@@ -40,6 +40,7 @@ namespace SmartGPA.Pages
            loadFileData.LoadData();
             subjects =loadFileData.GetSubjects();
 
+            labelListLoad();
             
 
             year_confirm.BackColor = ThemeColor.PrimaryColor;
@@ -170,14 +171,13 @@ namespace SmartGPA.Pages
 
             semester_dropdown.SelectedIndex = -1;
             semester = 0;
+
+            labelListLoad();
         }
 
         //confirm year button
         private void year_confirm_Click(object sender, EventArgs e)
-        {
-            
-
-            
+        {     
             if (year == 0)
             {
                 errorProvider1.Clear();
@@ -194,29 +194,16 @@ namespace SmartGPA.Pages
             {
                 subject_panel.Visible = true;
                year_panel.Visible = false;
-                year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+               year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
                 if (subjects != null && subjects.Any())
                 {
                    UpdateDataGridView();
-                    var groups1 = subjects.GroupBy(s => new { s.Year, s.Semester });
-                    foreach (var group in groups1)
-                    {
-                        if ((group.Key.Year) == year && (group.Key.Semester) == semester)
-                        {
-
-                        }
-                        else
-                        {
-                            /* Label l1 = new Label();
-                             l1.Text = "Year 0" + year + " Semester 0" + semester + " Results";
-                             this.Controls.Add(l1);*/
-                            
-                        }
-                    }
+                    
                 }
                 else 
                 {
                     //newLabelCreate();
+                    
                 }
                 
             }
@@ -226,7 +213,75 @@ namespace SmartGPA.Pages
         int left = 97;
         int count = 0;
 
-        public void newLabelCreate()
+        public void labelListLoad()
+        {
+            /* subjects.Clear();
+
+             // Load the data from the CSV file
+             loadFileData.LoadData();
+             var groups1 = subjects.GroupBy(s => new { s.Year, s.Semester });
+             foreach (var group in groups1)
+             {
+                 newLabelCreate(group.Key.Year, group.Key.Semester);
+             }*/
+            /*
+                // Clear the year_panel
+                year_panel.Controls.Clear();
+
+                // Load the data from the CSV file
+                loadFileData.LoadData();
+
+                // Group the subjects by year and semester
+                var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
+
+                // Create a label for each year and semester and add it to the year_panel
+                foreach (var group in groups.OrderBy(g => g.Key.Year).ThenBy(g => g.Key.Semester))
+                {
+                    newLabelCreate(group.Key.Year, group.Key.Semester);
+                }
+
+                // Sort the labels in the year_panel based on their text
+                year_panel.Controls.Cast<Label>().OrderBy(l => l.Text).ToList().ForEach(l => year_panel.Controls.SetChildIndex(l, 0));*/
+            // Remove any existing labels from the year_panel
+            foreach (Control control in year_panel.Controls.OfType<Label>().ToList())
+            {
+                if(control != label3 && control != label1 && control != label2)
+                {
+                    year_panel.Controls.Remove(control);
+                }
+               
+            }
+
+            // Load the data from the CSV file
+            loadFileData.LoadData();
+
+            // Group the subjects by year and semester
+            var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
+
+            // Create a label for each year and semester and add it to the year_panel
+            foreach (var group in groups.OrderBy(g => g.Key.Semester).ThenBy(g => g.Key.Year))
+            {
+                newLabelCreate(group.Key.Year, group.Key.Semester);
+            }
+
+            // Sort the labels in the year_panel based on their text
+            year_panel.Controls.OfType<Label>().OrderBy(l => l.Text).ToList().ForEach(l => year_panel.Controls.SetChildIndex(l, 0));
+
+            // Reposition the labels based on the current state of the year_panel
+            left = 97;
+            top = 188;
+            foreach (Control control in year_panel.Controls.OfType<Label>())
+            {
+                if (control != label3 && control != label1 && control != label2)
+                {
+                    control.Location = new Point(left, top);
+                    top += 50;
+                }
+               
+            }
+        }
+
+        public void newLabelCreate1(int year0, int semester0)
         {
             count++;
             for(int i=0; i<count; i++)
@@ -234,7 +289,7 @@ namespace SmartGPA.Pages
                  Label l1 = new Label();
             year_panel.Controls.Add(l1);
 
-            l1.Text = "Year 0";
+                l1.Text = "Year 0" + year0 + " Semester 0" + semester0 + " Results";
 
             l1.AutoSize = true;
             l1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -243,12 +298,35 @@ namespace SmartGPA.Pages
             l1.Size = new System.Drawing.Size(198, 26);
                 top += 50;
                 count--;
-            }
-           
-
+            }  
         }
 
-       
+        public void newLabelCreate(int year0, int semester0)
+        {
+            // Check if the label already exists in the panel
+            foreach (Label label in year_panel.Controls.OfType<Label>())
+            {
+                if (label.Text == "Year 0" + year0 + " Semester 0" + semester0 + " Results")
+                {
+                    return; // Label already exists, so return without creating a new one
+                }
+            }
+
+            // If the label does not exist, create and add it to the panel
+            Label l1 = new Label();
+            year_panel.Controls.Add(l1);
+
+            l1.Text = "Year 0" + year0 + " Semester 0" + semester0 + " Results";
+            l1.AutoSize = true;
+            l1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            l1.Location = new System.Drawing.Point(left, top);
+            l1.Name = "label7";
+            l1.Size = new System.Drawing.Size(198, 26);
+
+            top += 50;
+        }
+
+
 
         private void grade_dropdown_SelectedIndexChanged(object sender, EventArgs e)
         {

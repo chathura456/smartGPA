@@ -119,12 +119,12 @@ namespace SmartGPA.Pages
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Pages.Settings(), sender);
+            OpenChildForm(new Pages.Info(), sender);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Pages.Info(), sender);
+            OpenChildForm(new Pages.Settings(), sender);
         }
 
         private void HomeUi_Load(object sender, EventArgs e)
@@ -147,7 +147,13 @@ namespace SmartGPA.Pages
             //panelTitleBox.BackColor = color;
             ThemeColor.PrimaryColor = color;
             ThemeColor.SecondaryColor = color;
-            //SetGpaLabelText(loadFileData.CalculateGPA());
+
+            var sbj = loadFileData.GetSubjects();
+            if (sbj!=null && sbj.Any())
+            {
+                SetGpaLabelText(loadFileData.CalculateGPA());
+            }
+            
         }
 
         private void panelTitleBox_MouseDown(object sender, MouseEventArgs e)
