@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media.TextFormatting;
+using Point = System.Drawing.Point;
 
 namespace SmartGPA.Pages
 {
@@ -18,6 +21,8 @@ namespace SmartGPA.Pages
         public string grade, name;
         public int year, semester, credit;
         private List<Subject> subjects;
+        private string filename = "subjects.csv";
+        private LoadFileData loadFileData;
 
         private HomeUi _form1;
 
@@ -26,7 +31,8 @@ namespace SmartGPA.Pages
             InitializeComponent();
             _form1 = form1;
             // Initialize the subjects list and bind it to the DataGridView
-            subjects = new List<Subject>();
+            //subjects = new List<Subject>();
+            loadFileData= new LoadFileData();
            /* dataGridView1.DataSource = subjects;
             dataGridView1.AutoGenerateColumns = false;
 
@@ -38,6 +44,9 @@ namespace SmartGPA.Pages
 
         private void Grades_Load(object sender, EventArgs e)
         {
+           loadFileData.LoadData();
+            subjects =loadFileData.GetSubjects();
+
             year_confirm.BackColor = ThemeColor.PrimaryColor;
             add_results.BackColor = ThemeColor.PrimaryColor;
             add_year.BackColor = ThemeColor.ChangeColorBrightness(ThemeColor.PrimaryColor, +0.3);
@@ -130,6 +139,18 @@ namespace SmartGPA.Pages
                 /* dataGridView1.DataSource = null;
                  dataGridView1.DataSource = subjects;*/
 
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    foreach (Subject subject0 in subjects)
+                    {
+                        string line = $"{subject0.Year},{subject0.Semester},{subject0.Name},{subject0.Credits},{subject0.Grade},{subject0.Points}";
+                        writer.WriteLine(line);
+                    }
+                }
+
+
+
+
                 // Calculate and display the GPA
                 double totalPoints = subjects.Sum(s => s.Credits * s.Points);
                  int totalCredits = subjects.Sum(s => s.Credits);
@@ -159,6 +180,9 @@ namespace SmartGPA.Pages
         //confirm year button
         private void year_confirm_Click(object sender, EventArgs e)
         {
+            
+
+            
             if (year == 0)
             {
                 errorProvider1.Clear();
@@ -174,11 +198,11 @@ namespace SmartGPA.Pages
             else
             {
                 subject_panel.Visible = true;
-                year_panel.Visible = false;
+               year_panel.Visible = false;
                 year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
-                if (subjects != null)
+                if (subjects != null && subjects.Any())
                 {
-                    UpdateDataGridView();
+                   UpdateDataGridView();
                     var groups1 = subjects.GroupBy(s => new { s.Year, s.Semester });
                     foreach (var group in groups1)
                     {
@@ -188,21 +212,48 @@ namespace SmartGPA.Pages
                         }
                         else
                         {
-                            Label l1 = new Label();
-                            l1.Text = "Year 0" + year + " Semester 0" + semester + " Results";
-                            l1.Show();
+                            /* Label l1 = new Label();
+                             l1.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+                             this.Controls.Add(l1);*/
+                            
                         }
                     }
                 }
                 else 
                 {
-                    Label l1 = new Label();
-                    l1.Text = "Year 0" + year + " Semester 0" + semester + " Results";
-                    l1.Show();
+                    //newLabelCreate();
                 }
                 
             }
         }
+
+        int top =178;
+        int left = 97;
+        int count = 0;
+
+        public void newLabelCreate()
+        {
+            count++;
+            for(int i=0; i<count; i++)
+            {
+                 Label l1 = new Label();
+            year_panel.Controls.Add(l1);
+
+            l1.Text = "Year 0";
+
+            l1.AutoSize = true;
+            l1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            l1.Location = new System.Drawing.Point(left, top);
+            l1.Name = "label7";
+            l1.Size = new System.Drawing.Size(198, 26);
+                top += 50;
+                count--;
+            }
+           
+
+        }
+
+       
 
         private void grade_dropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -270,22 +321,28 @@ namespace SmartGPA.Pages
                     throw new ArgumentException("Invalid grade.");
             }
         }
-
+        
         private void UpdateDataGridView()
         {
             // Clear the existing rows
             dataGridView1.Rows.Clear();
 
+            // Clear the existing subjects
+            subjects.Clear();
+
+            // Load the data from the CSV file
+            loadFileData.LoadData();
+
             // Add the rows for each subject in the list
-           /* foreach (var subject in subjects)
-            {
-                dataGridView1.Rows.Add(
-                    subject.Name,
-                    subject.Credits,
-                    subject.Grade,
-                    subject.Points
-                );
-            }*/
+            /* foreach (var subject in subjects)
+             {
+                 dataGridView1.Rows.Add(
+                     subject.Name,
+                     subject.Credits,
+                     subject.Grade,
+                     subject.Points
+                 );
+             }*/
 
             var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
             foreach (var group in groups)
@@ -308,9 +365,11 @@ namespace SmartGPA.Pages
                     }
 
                     // Add the subjects in the group as regular rows
-
                 }
             }
+
         }
+
+
     }
 }
