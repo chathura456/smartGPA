@@ -1,7 +1,3 @@
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\SmartGPA.exe.config
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\SmartGPA.exe
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\SmartGPA.pdb
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\FontAwesome.Sharp.dll
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.AssemblyReference.cache
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.SuggestedBindingRedirects.cache
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Form1.resources
@@ -13,9 +9,13 @@ E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Settings.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Properties.Resources.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.GenerateResource.cache
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.CoreCompileInputs.cache
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\SmartGPA.exe.config
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\SmartGPA.exe
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\SmartGPA.pdb
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\CircularProgressBar.dll
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\FontAwesome.Sharp.dll
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\WinFormAnimation.dll
+E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\CircularProgressBar.xml
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.CopyComplete
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.exe
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.pdb
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\CircularProgressBar.dll
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\WinFormAnimation.dll
-E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\CircularProgressBar.xml

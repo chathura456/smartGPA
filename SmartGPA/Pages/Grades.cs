@@ -11,8 +11,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
 using Point = System.Drawing.Point;
+
 
 namespace SmartGPA.Pages
 {
@@ -23,7 +25,6 @@ namespace SmartGPA.Pages
         private List<Subject> subjects;
         private string filename = "subjects.csv";
         private LoadFileData loadFileData;
-
         private HomeUi _form1;
 
         public Grades(HomeUi form1)
@@ -32,23 +33,23 @@ namespace SmartGPA.Pages
             _form1 = form1;
             // Initialize the subjects list and bind it to the DataGridView
             //subjects = new List<Subject>();
-            loadFileData= new LoadFileData();
+            loadFileData = new LoadFileData();
         }
 
         private void Grades_Load(object sender, EventArgs e)
         {
-           loadFileData.LoadData();
-            subjects =loadFileData.GetSubjects();
+            loadFileData.LoadData();
+            subjects = loadFileData.GetSubjects();
 
             labelListLoad();
-            
+
 
             year_confirm.BackColor = ThemeColor.PrimaryColor;
             add_results.BackColor = ThemeColor.PrimaryColor;
             add_year.BackColor = ThemeColor.ChangeColorBrightness(ThemeColor.PrimaryColor, +0.3);
 
             this.dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            
+
 
             //year dropdown item add
             year_dropdown.Items.Clear();
@@ -100,10 +101,10 @@ namespace SmartGPA.Pages
             semester = 0;
 
             // Add column headers to the DataGridView
-           /* dataGridView1.Columns.Add("Name", "Name");
-            dataGridView1.Columns.Add("Credits", "Credits");
-            dataGridView1.Columns.Add("Grade", "Grade");
-            dataGridView1.Columns.Add("Points", "Points");*/
+            /* dataGridView1.Columns.Add("Name", "Name");
+             dataGridView1.Columns.Add("Credits", "Credits");
+             dataGridView1.Columns.Add("Grade", "Grade");
+             dataGridView1.Columns.Add("Points", "Points");*/
 
         }
 
@@ -131,7 +132,7 @@ namespace SmartGPA.Pages
                 };
 
                 // Add the subject to the list and bind the list to the DataGridView
-                 subjects.Add(subject);
+                subjects.Add(subject);
                 /* dataGridView1.DataSource = null;
                  dataGridView1.DataSource = subjects;*/
 
@@ -177,7 +178,7 @@ namespace SmartGPA.Pages
 
         //confirm year button
         private void year_confirm_Click(object sender, EventArgs e)
-        {     
+        {
             if (year == 0)
             {
                 errorProvider1.Clear();
@@ -193,24 +194,24 @@ namespace SmartGPA.Pages
             else
             {
                 subject_panel.Visible = true;
-               year_panel.Visible = false;
-               year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
+                year_panel.Visible = false;
+                year_label.Text = "Year 0" + year + " Semester 0" + semester + " Results";
                 if (subjects != null && subjects.Any())
                 {
-                   UpdateDataGridView();
-                    
+                    UpdateDataGridView();
+
                 }
-                else 
+                else
                 {
                     //newLabelCreate();
-                    
+
                 }
-                
+
             }
         }
 
-        int top =178;
-        int left = 97;
+        int top = 47;
+        int left = 3;
 
         public void labelListLoad()
         {
@@ -244,11 +245,11 @@ namespace SmartGPA.Pages
             // Remove any existing labels from the year_panel
             foreach (Control control in year_panel.Controls.OfType<Label>().ToList())
             {
-                if(control != label3 && control != label1 && control != label2)
+                if (control != label3 && control != label1 && control != label2 && control != label7 && control != label8)
                 {
                     year_panel.Controls.Remove(control);
                 }
-               
+
             }
 
             // Load the data from the CSV file
@@ -267,16 +268,17 @@ namespace SmartGPA.Pages
             year_panel.Controls.OfType<Label>().OrderBy(l => l.Text).ToList().ForEach(l => year_panel.Controls.SetChildIndex(l, 0));
 
             // Reposition the labels based on the current state of the year_panel
-            left = 97;
-            top = 188;
+            left = 3;
+            top = 47;
             foreach (Control control in year_panel.Controls.OfType<Label>())
             {
-                if (control != label3 && control != label1 && control != label2)
+                if (control != label3 && control != label1 && control != label2 && control != label7 && control!= label8)
                 {
-                    control.Location = new Point(left, top);
-                    top += 50;
+                    control.Location = new Point(3, top);
+                    //control.Anchor = System.Windows.Forms.AnchorStyles.Top;
+                    top += 30;
                 }
-               
+
             }
         }
 
@@ -293,21 +295,37 @@ namespace SmartGPA.Pages
 
             // If the label does not exist, create and add it to the panel
             Label l1 = new Label();
-            year_panel.Controls.Add(l1);
+            listPanel.Controls.Add(l1);
 
             l1.Text = "Year 0" + year0 + " Semester 0" + semester0 + " Results";
             l1.AutoSize = true;
-            l1.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            l1.Location = new System.Drawing.Point(left, top);
-            l1.Name = "label7";
-            l1.Size = new System.Drawing.Size(198, 26);
+            l1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            l1.Location = new System.Drawing.Point(3, top);
+            l1.ForeColor = System.Drawing.Color.White;
+            l1.Name = "label9";
+            l1.Size = new System.Drawing.Size(198, 17);
             l1.Click += new EventHandler(newLabelClick);
+            l1.MouseEnter += new EventHandler(newLabelMouseEnter);
+            l1.MouseLeave += new EventHandler(newLabelMouseLeave);
+            l1.Anchor = System.Windows.Forms.AnchorStyles.Top;
 
             // Add the year and semester values to the Tag property of the label
             l1.Tag = new Tuple<int, int>(year0, semester0);
 
 
-            top += 50;
+            top += 30;
+        }
+
+        private void newLabelMouseEnter(object sender, EventArgs e)
+        {
+            Label clickedLabel = (Label)sender;
+            clickedLabel.ForeColor = System.Drawing.Color.Yellow;
+        }
+
+        private void newLabelMouseLeave(object sender, EventArgs e)
+        {
+            Label clickedLabel = (Label)sender;
+            clickedLabel.ForeColor = System.Drawing.Color.White;
         }
 
         private void newLabelClick(object sender, EventArgs e)
@@ -324,12 +342,6 @@ namespace SmartGPA.Pages
             if (subjects != null && subjects.Any())
             {
                 UpdateDataGridView();
-
-            }
-            else
-            {
-                //newLabelCreate();
-
             }
         }
 
@@ -369,6 +381,34 @@ namespace SmartGPA.Pages
 
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
+            subject_panel.Visible = true;
+            year_panel.Visible = false;
+            year_label.Text = "All Results";
+            if (subjects != null && subjects.Any())
+            {
+                getAllDatatoTable();
+            }
+
+        }
+
+        private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+
+         
+        }
+
+        private void label7_MouseEnter(object sender, EventArgs e)
+        {
+            label7.ForeColor = System.Drawing.Color.Yellow;
+        }
+
+        private void label7_MouseLeave(object sender, EventArgs e)
+        {
+            label7.ForeColor = System.Drawing.Color.White;
+        }
+
         private double GetPointsForGrade(string grade)
         {
             switch (grade)
@@ -401,7 +441,7 @@ namespace SmartGPA.Pages
                     throw new ArgumentException("Invalid grade.");
             }
         }
-        
+
         private void UpdateDataGridView()
         {
             // Clear the existing rows
@@ -414,18 +454,23 @@ namespace SmartGPA.Pages
             loadFileData.LoadData();
             _form1.SetGpaLabelText(loadFileData.CalculateGPA());
 
-            // Add the rows for each subject in the list
-            /* foreach (var subject in subjects)
-             {
-                 dataGridView1.Rows.Add(
-                     subject.Name,
-                     subject.Credits,
-                     subject.Grade,
-                     subject.Points
-                 );
-             }*/
+            if (dataGridView1.Columns["YearData"] != null)
+            {
+                dataGridView1.Columns.Remove("YearData");
+            }
 
-            var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
+                // Add the rows for each subject in the list
+                /* foreach (var subject in subjects)
+                 {
+                     dataGridView1.Rows.Add(
+                         subject.Name,
+                         subject.Credits,
+                         subject.Grade,
+                         subject.Points
+                     );
+                 }*/
+
+                var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
             foreach (var group in groups)
             {
                 /*DataGridViewRow subheadingRow = new DataGridViewRow();
@@ -451,7 +496,61 @@ namespace SmartGPA.Pages
 
         }
 
-       
+        private void getAllDatatoTable()
+        {
+            // Clear the existing rows
+            dataGridView1.Rows.Clear();
 
+            // Clear the existing subjects
+            subjects.Clear();
+
+            // Load the data from the CSV file
+            loadFileData.LoadData();
+            _form1.SetGpaLabelText(loadFileData.CalculateGPA());
+
+            var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
+
+            // Insert the "YearData" column as the first column in the DataGridView
+            if (dataGridView1.Columns["YearData"] == null)
+            {
+                // If the column does not exist, insert it as the first column
+                dataGridView1.Columns.Insert(0, new DataGridViewTextBoxColumn()
+                {
+                    Name = "YearData",
+                    HeaderText = "Year Data"
+                });
+            }
+
+            //DataGridViewRow previousRow = null;
+
+            foreach (var group in groups)
+            {
+                // Merge the year and semester data into one string
+                string yearData = $"Year 0{group.Key.Year}, Semester 0{group.Key.Semester}";
+
+                foreach (Subject s in group)
+                {
+
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(dataGridView1);
+
+                // Add the yearData to the first cell
+
+                row.Cells[0].Value = yearData;
+
+
+                row.Cells[1].Value = s.Name;
+                    row.Cells[2].Value = s.Credits;
+                    row.Cells[3].Value = s.Grade;
+                    row.Cells[4].Value = s.Points;
+                    dataGridView1.Rows.Add(row);
+                }
+                
+                
+            }
+            
+
+
+        }
     }
 }

@@ -81,7 +81,7 @@ namespace SmartGPA.Pages
             {
                 if (previousButton.GetType() == typeof(Button))
                 {
-                    previousButton.BackColor = Color.FromArgb(51, 51, 76);
+                    previousButton.BackColor = Color.FromArgb(39, 39, 58);
                     previousButton.ForeColor = Color.Gainsboro;
                     previousButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
@@ -104,7 +104,8 @@ namespace SmartGPA.Pages
             this.panelMiddle.Tag= childForm;
             childForm.BringToFront();
             childForm.Show();
-            lblTitle.Text = childForm.Text;
+            //lblTitle.Text = childForm.Text;
+            lblTitle.Text = "";
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -152,6 +153,7 @@ namespace SmartGPA.Pages
             if (sbj!=null && sbj.Any())
             {
                 SetGpaLabelText(loadFileData.CalculateGPA());
+               
             }
             
         }

@@ -7,7 +7,18 @@ using System.Threading.Tasks;
 
 namespace SmartGPA
 {
-    
+
+    //090a38 9,10,56
+    //02002f 2,0,47
+
+    //262b48 38,43,72
+    //1d1f38 29,31,56
+
+    //current
+    //39,39,58
+    //51,51,76
+
+
     public static class ThemeColor
     {
        public static List<string> ColorList = new List<string>() {
