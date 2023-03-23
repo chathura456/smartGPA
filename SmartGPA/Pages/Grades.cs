@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
+using MessageBox = System.Windows.Forms.MessageBox;
 using Point = System.Drawing.Point;
 
 
@@ -49,6 +51,12 @@ namespace SmartGPA.Pages
             add_year.BackColor = ThemeColor.ChangeColorBrightness(ThemeColor.PrimaryColor, +0.3);
 
             this.dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = ThemeColor.PrimaryColor;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.ColumnHeadersHeight = 40;
+            this.dataGridView1.Columns[4].HeaderText= "";
+            this.dataGridView1.Columns[5].HeaderText= "";
+            
 
 
             //year dropdown item add
@@ -409,6 +417,60 @@ namespace SmartGPA.Pages
             label7.ForeColor = System.Drawing.Color.White;
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the clicked cell is a button cell
+            if (e.ColumnIndex == 4 && e.RowIndex >= 0)
+            {/*
+                // Get the subject from the corresponding row
+                Subject subject = subjects[e.RowIndex];
+
+                // Show a form to edit the subject
+                EditSubjectForm editForm = new EditSubjectForm(subject);
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Update the subject with the edited values
+                    subject.Name = editForm.SubjectName;
+                    subject.Credits = editForm.SubjectCredits;
+                    subject.Grade = editForm.SubjectGrade;
+                    subject.Points = editForm.SubjectPoints;
+
+                    // Refresh the DataGridView to show the updated values
+                    UpdateDataGridView();
+                }*/
+            }
+            else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
+            {
+                // Confirm that the user wants to delete the subject
+          
+                if (MessageBox.Show("Are You want to delete this user record?", "Delete Subject", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
+                {// Remove the subject from the list and refresh the DataGridView
+                 // Get the subject in the selected row
+                    Subject subject = (Subject)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                    // Delete the subject from the subjects list
+                    subjects.Remove(subject);
+
+                    // Delete the subject from the CSV file
+                    string csvFilePath = filename;
+                    string[] csvLines = File.ReadAllLines(csvFilePath);
+                    List<string> csvLinesList = csvLines.ToList();
+                    int rowToDeleteIndex = csvLinesList.FindIndex(line => 
+                    line.Contains($"{subject.Name},{subject.Credits},{subject.Grade}"));
+                    if (rowToDeleteIndex >= 0)
+                    {
+                        csvLinesList.RemoveAt(rowToDeleteIndex);
+                        File.WriteAllLines(csvFilePath, csvLinesList);
+                    }
+
+                    // Update the DataGridView
+                    UpdateDataGridView();
+                }
+                
+               
+            }
+        }
+
         private double GetPointsForGrade(string grade)
         {
             switch (grade)
@@ -446,7 +508,15 @@ namespace SmartGPA.Pages
         {
             // Clear the existing rows
             dataGridView1.Rows.Clear();
-
+            
+            dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
+            dataGridView1.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            dataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.00F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridView1.RowTemplate.SetValues(Height, true);
+    
+            
             // Clear the existing subjects
             subjects.Clear();
 
@@ -501,6 +571,12 @@ namespace SmartGPA.Pages
             // Clear the existing rows
             dataGridView1.Rows.Clear();
 
+            dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
+            dataGridView1.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            dataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.00F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
             // Clear the existing subjects
             subjects.Clear();
 
@@ -519,6 +595,8 @@ namespace SmartGPA.Pages
                     Name = "YearData",
                     HeaderText = "Year Data"
                 });
+
+                dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             //DataGridViewRow previousRow = null;
