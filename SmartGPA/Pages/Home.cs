@@ -31,6 +31,7 @@ namespace SmartGPA.Pages
             backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
             // This event will be raised when we call ReportProgress
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
+            
         }
 
         void Form1_Shown(object sender, EventArgs e)
@@ -64,26 +65,30 @@ namespace SmartGPA.Pages
             circularProgressBar1.Value= 0;
             circularProgressBar1.Minimum= 0;
             circularProgressBar1.Maximum= 100;
+            
 
             var sbj = loadFileData.GetSubjects();
             if (sbj != null && sbj.Any())
             {
                gpa = loadFileData.CalculateGPA();
                 classLabel.Text = findClass(double.Parse(gpa));
+                
             }
 
             
             circularProgressBar1.Text= gpa;
             double gpaProgess = double.Parse(gpa)*25;
-            
-            
-           /* for (int i=0; i <= gpaProgess; i++)
-            {
-                //Thread.Sleep(1);
-               
-                circularProgressBar1.Value = i;
-                circularProgressBar1.Update();
-            }*/
+            circularProgressBar1.ProgressColor = ThemeColor.PrimaryColor;
+
+
+
+            /* for (int i=0; i <= gpaProgess; i++)
+             {
+                 //Thread.Sleep(1);
+
+                 circularProgressBar1.Value = i;
+                 circularProgressBar1.Update();
+             }*/
         }
 
         private void Home_SizeChanged(object sender, EventArgs e)

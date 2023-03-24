@@ -19,7 +19,7 @@ namespace SmartGPA.Pages
         public Update(Grades parent)
         {
             InitializeComponent();
-            _parent = parent;   
+            _parent = parent;
         }
 
         //form load
@@ -52,7 +52,6 @@ namespace SmartGPA.Pages
             grade_dropdown.Items.Add("D+");
             grade_dropdown.Items.Add("D");
             grade_dropdown.Items.Add("F");
-            credit_dropdown.SelectedItem = 3;
 
             //year dropdown item add
             year_dropdown.Items.Clear();
@@ -68,6 +67,9 @@ namespace SmartGPA.Pages
             semester_dropdown.Items.Add(2);
             semester_dropdown.Items.Add(3);
             semester_dropdown.Items.Add(4);
+
+            update_button.BackColor = ThemeColor.PrimaryColor;
+            cancel_btn.ForeColor= ThemeColor.PrimaryColor;
         }
 
         /****************************Buttons**********************/
@@ -81,7 +83,8 @@ namespace SmartGPA.Pages
         //cancel button
         private void cancel_btn_Click(object sender, EventArgs e)
         {
-
+            this.Close();
+           
         }
 
         /****************************Dropdowns**********************/
@@ -93,6 +96,23 @@ namespace SmartGPA.Pages
                 grade = grade_dropdown.SelectedItem.ToString();
             }
 
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnClose_MouseEnter(object sender, EventArgs e)
+        {
+            btnClose.BackColor = Color.White;
+            btnClose.IconColor = Color.Black;
+        }
+
+        private void btnClose_MouseLeave(object sender, EventArgs e)
+        {
+            btnClose.IconColor= Color.White;
+            btnClose.BackColor = ThemeColor.DarkGrey;
         }
 
         private void credit_dropdown_SelectedIndexChanged(object sender, EventArgs e)

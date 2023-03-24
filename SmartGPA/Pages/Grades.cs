@@ -29,6 +29,7 @@ namespace SmartGPA.Pages
         private CsvCrud csvCrud;
         private HomeUi _form1;
         private Update updateForm;
+        private Delete deleteForm;
 
         public Grades(HomeUi form1)
         {
@@ -38,6 +39,7 @@ namespace SmartGPA.Pages
             //subjects = new List<Subject>();
             csvCrud = new CsvCrud();
             updateForm = new Update(this);
+            deleteForm = new Delete(this);
         }
 
         private void Grades_Load(object sender, EventArgs e)
@@ -442,15 +444,20 @@ namespace SmartGPA.Pages
             }
             else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
-                // Confirm that the user wants to delete the subject
-          
-                if (MessageBox.Show("Are You want to delete this user record?", "Delete Subject", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
-                {
+                deleteForm.ShowDialog();
+            }
+        }
 
-                    
-                }
-                
-               
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the clicked cell is a button cell
+            if (e.ColumnIndex == 5 && e.RowIndex >= 0)
+            {
+                updateForm.ShowDialog();
+            }
+            else if (e.ColumnIndex == 6 && e.RowIndex >= 0)
+            {
+             deleteForm.ShowDialog();
             }
         }
 

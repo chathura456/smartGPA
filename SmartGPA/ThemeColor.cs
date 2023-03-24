@@ -29,6 +29,9 @@ namespace SmartGPA
         "#08A04B"
         };
 
+        public static Color DarkGrey= Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
+        public static Color LightGrey = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+
         public static Color PrimaryColor { get; set; }
         public static Color SecondaryColor { get; set; }
 

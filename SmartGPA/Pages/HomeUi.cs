@@ -130,16 +130,7 @@ namespace SmartGPA.Pages
 
         private void HomeUi_Load(object sender, EventArgs e)
         {
-            activeForm = new Home(this);
-            activeForm.TopLevel = false;
-            activeForm.FormBorderStyle = FormBorderStyle.None;
-            activeForm.Dock = DockStyle.Fill;
-            this.panelMiddle.Controls.Add(activeForm);
-            this.panelMiddle.Tag = activeForm;
-            activeForm.BringToFront();
-            activeForm.Show();
-            lblTitle.Text = activeForm.Text;
-
+            
             Color color = SelectThemeColor();
             currentButton = btnHome;
             currentButton.BackColor = color;
@@ -155,7 +146,17 @@ namespace SmartGPA.Pages
                 SetGpaLabelText(loadFileData.CalculateGPA());
                
             }
-            
+
+            activeForm = new Home(this);
+            activeForm.TopLevel = false;
+            activeForm.FormBorderStyle = FormBorderStyle.None;
+            activeForm.Dock = DockStyle.Fill;
+            this.panelMiddle.Controls.Add(activeForm);
+            this.panelMiddle.Tag = activeForm;
+            activeForm.BringToFront();
+            activeForm.Show();
+            lblTitle.Text = activeForm.Text;
+
         }
 
         private void panelTitleBox_MouseDown(object sender, MouseEventArgs e)
@@ -195,7 +196,7 @@ namespace SmartGPA.Pages
             else
             {
                 this.WindowState = FormWindowState.Normal;
-                this.Size = new System.Drawing.Size(933, 519);
+                this.Size = new System.Drawing.Size(949, 558);
             }
         }
 
@@ -204,9 +205,42 @@ namespace SmartGPA.Pages
             Application.Exit();
         }
 
-        private void panelMiddle_Paint(object sender, PaintEventArgs e)
+        private void btnClose_MouseEnter(object sender, EventArgs e)
         {
-
+            btnClose.BackColor = Color.White;
+            btnClose.IconColor = ThemeColor.LightGrey;
         }
+
+        private void btnClose_MouseLeave(object sender, EventArgs e)
+        {
+            btnClose.IconColor = Color.White;
+            btnClose.BackColor = ThemeColor.LightGrey;
+        }
+
+        private void btnMaximize_MouseEnter(object sender, EventArgs e)
+        {
+            btnMaximize.BackColor = Color.White;
+            btnMaximize.IconColor = ThemeColor.LightGrey;
+        }
+
+        private void btnMaximize_MouseLeave(object sender, EventArgs e)
+        {
+            btnMaximize.IconColor = Color.White;
+            btnMaximize.BackColor = ThemeColor.LightGrey;
+        }
+
+        private void btnMinimize_MouseEnter(object sender, EventArgs e)
+        {
+            btnMinimize.BackColor = Color.White;
+            btnMinimize.IconColor = ThemeColor.LightGrey;
+        }
+
+        private void btnMinimize_MouseLeave(object sender, EventArgs e)
+        {
+            btnMinimize.IconColor = Color.White;
+            btnMinimize.BackColor = ThemeColor.LightGrey;
+        }
+
+       
     }
 }

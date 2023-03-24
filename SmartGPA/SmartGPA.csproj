@@ -73,6 +73,12 @@
     </Compile>
     <Compile Include="Models\CsvCrud.cs" />
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Pages\Delete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\Delete.Designer.cs">
+      <DependentUpon>Delete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Grades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Delete.resx">
+      <DependentUpon>Delete.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Grades.resx">
       <DependentUpon>Grades.cs</DependentUpon>
