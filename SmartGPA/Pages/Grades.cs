@@ -26,9 +26,9 @@ namespace SmartGPA.Pages
         public int year, semester, credit;
         private List<Subject> subjects;
         private string filename = "subjects.csv";
-        private CsvCrud csvCrud
-            ;
+        private CsvCrud csvCrud;
         private HomeUi _form1;
+        private Update updateForm;
 
         public Grades(HomeUi form1)
         {
@@ -37,12 +37,15 @@ namespace SmartGPA.Pages
             // Initialize the subjects list and bind it to the DataGridView
             //subjects = new List<Subject>();
             csvCrud = new CsvCrud();
+            updateForm = new Update(this);
         }
 
         private void Grades_Load(object sender, EventArgs e)
         {
             csvCrud.LoadData();
             subjects = csvCrud.GetSubjects();
+            updateForm.MaximizeBox= false;
+            updateForm.MinimizeBox= false;
 
             labelListLoad();
 
@@ -57,7 +60,10 @@ namespace SmartGPA.Pages
             this.dataGridView1.ColumnHeadersHeight = 40;
             this.dataGridView1.Columns[4].HeaderText= "";
             this.dataGridView1.Columns[5].HeaderText= "";
-            
+
+            this.dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = ThemeColor.PrimaryColor;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView2.ColumnHeadersHeight = 40;
 
 
             //year dropdown item add
@@ -120,7 +126,13 @@ namespace SmartGPA.Pages
         //add results button
         private void add_results_Click(object sender, EventArgs e)
         {
-            if (grade == null)
+            if(name_input.Text == "")
+            {
+                errorProvider1.Clear();
+                name_input.Focus();
+                errorProvider1.SetError(name_input, "Please Enter Module name");
+            }
+            else if (grade == null)
             {
                 errorProvider1.Clear();
                 grade_dropdown.Focus();
@@ -139,37 +151,27 @@ namespace SmartGPA.Pages
                     Grade = grade,
                     Points = GetPointsForGrade(grade.ToString()),
                 };
-                
-                // Add the subject to the list and bind the list to the DataGridView
-               csvCrud.SaveData(subject);
-                // subjects.Add(subject);
-                
-                /* dataGridView1.DataSource = null;
-                 dataGridView1.DataSource = subjects;*/
-
-                /*using (StreamWriter writer = new StreamWriter(filename))
-                {
-                    foreach (Subject subject0 in subjects)
-                    {
-                        string line = $"{subject0.Year},{subject0.Semester},{subject0.Name},{subject0.Credits},{subject0.Grade},{subject0.Points}";
-                        writer.WriteLine(line);
-                    }
-                }
-                */
-
-                /*
-
-                // Calculate and display the GPA
-                double totalPoints = subjects.Sum(s => s.Credits * s.Points);
-                 int totalCredits = subjects.Sum(s => s.Credits);
-                 double gpa = totalPoints / totalCredits;
-                 //gpa_label.Text = $"Your GPA: {gpa.ToString("F2")}";
-
-                 _form1.SetGpaLabelText($"{gpa.ToString("F2")}");*/
+               
+                //add data to csv file 
+                csvCrud.SaveData(subject);
 
                 // Update the DataGridView with the list of subjects
                 UpdateDataGridView();
+
+                //clear inputs
+                clearResults();
             }
+        }
+
+        //clear results inputs
+        public void clearResults()
+        {
+            name_input.Clear();
+            credit_dropdown.SelectedItem = 3;
+            grade_dropdown.SelectedIndex = -1;
+            name = "";
+            grade= null;
+            credit = 0;
         }
 
         //add year button
@@ -177,6 +179,8 @@ namespace SmartGPA.Pages
         {
             subject_panel.Visible = false;
             year_panel.Visible = true;
+            resultGroup_panel.Visible = true;
+            allResults_panel.Visible = false;
 
             year_dropdown.SelectedIndex = -1;
             year = 0;
@@ -361,7 +365,11 @@ namespace SmartGPA.Pages
         private void grade_dropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
             errorProvider1.Clear();
-            grade = grade_dropdown.SelectedItem.ToString();
+            if (grade_dropdown.SelectedIndex != -1)
+            {
+                grade = grade_dropdown.SelectedItem.ToString();
+            }
+            
         }
 
         private void credit_dropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -392,11 +400,16 @@ namespace SmartGPA.Pages
 
         }
 
+        //All results Label
         private void label7_Click(object sender, EventArgs e)
         {
             subject_panel.Visible = true;
+            resultGroup_panel.Visible = false;
+            allResults_panel.Visible = true;
             year_panel.Visible = false;
             year_label.Text = "All Results";
+            //536,337
+            
             if (subjects != null && subjects.Any())
             {
                 getAllDatatoTable();
@@ -425,6 +438,7 @@ namespace SmartGPA.Pages
             // Check if the clicked cell is a button cell
             if (e.ColumnIndex == 4 && e.RowIndex >= 0)
             {
+                updateForm.ShowDialog();
             }
             else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
@@ -480,7 +494,8 @@ namespace SmartGPA.Pages
             
             dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
+            dataGridView1.GridColor = System.Drawing.Color.White;
+           // dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
             dataGridView1.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             dataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.00F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridView1.RowTemplate.SetValues(Height, true);
@@ -538,13 +553,13 @@ namespace SmartGPA.Pages
         private void getAllDatatoTable()
         {
             // Clear the existing rows
-            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
 
-            dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
-            dataGridView1.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            dataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.00F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridView2.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            dataGridView2.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            dataGridView2.GridColor = System.Drawing.Color.White;
+            dataGridView2.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            dataGridView2.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.00F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             // Clear the existing subjects
             subjects.Clear();
@@ -556,17 +571,17 @@ namespace SmartGPA.Pages
             var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
 
             // Insert the "YearData" column as the first column in the DataGridView
-            if (dataGridView1.Columns["YearData"] == null)
+           /* if (dataGridView2.Columns["YearData"] == null)
             {
                 // If the column does not exist, insert it as the first column
-                dataGridView1.Columns.Insert(0, new DataGridViewTextBoxColumn()
+                dataGridView2.Columns.Insert(0, new DataGridViewTextBoxColumn()
                 {
                     Name = "YearData",
                     HeaderText = "Year Data"
                 });
 
-                dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
+                dataGridView2.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }*/
 
             //DataGridViewRow previousRow = null;
 
@@ -579,18 +594,16 @@ namespace SmartGPA.Pages
                 {
 
                     DataGridViewRow row = new DataGridViewRow();
-                    row.CreateCells(dataGridView1);
+                    row.CreateCells(dataGridView2);
 
                 // Add the yearData to the first cell
 
                 row.Cells[0].Value = yearData;
-
-
                 row.Cells[1].Value = s.Name;
                     row.Cells[2].Value = s.Credits;
                     row.Cells[3].Value = s.Grade;
                     row.Cells[4].Value = s.Points;
-                    dataGridView1.Rows.Add(row);
+                    dataGridView2.Rows.Add(row);
                 }
                 
                 

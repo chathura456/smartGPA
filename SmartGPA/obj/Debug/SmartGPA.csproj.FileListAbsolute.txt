@@ -19,3 +19,4 @@ E:\My_Projects\SmartGPA\SmartGPA\bin\Debug\CircularProgressBar.xml
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.CopyComplete
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.exe
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.pdb
+E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Update.resources

@@ -190,10 +190,12 @@ namespace SmartGPA.Pages
             if(WindowState == FormWindowState.Normal)
             {
                 this.WindowState = FormWindowState.Maximized;
+                
             }
             else
             {
                 this.WindowState = FormWindowState.Normal;
+                this.Size = new System.Drawing.Size(933, 519);
             }
         }
 
