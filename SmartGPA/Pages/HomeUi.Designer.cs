@@ -169,7 +169,7 @@
             this.gpa_label.AutoSize = true;
             this.gpa_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpa_label.ForeColor = System.Drawing.Color.Gainsboro;
-            this.gpa_label.Location = new System.Drawing.Point(142, 86);
+            this.gpa_label.Location = new System.Drawing.Point(164, 88);
             this.gpa_label.Name = "gpa_label";
             this.gpa_label.Size = new System.Drawing.Size(62, 29);
             this.gpa_label.TabIndex = 2;
@@ -182,9 +182,9 @@
             this.label2.ForeColor = System.Drawing.Color.Gainsboro;
             this.label2.Location = new System.Drawing.Point(27, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 22);
+            this.label2.Size = new System.Drawing.Size(140, 22);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Your GPA  :";
+            this.label2.Text = "Current GPA  :";
             // 
             // label1
             // 
@@ -291,6 +291,7 @@
             this.panelMiddle.Name = "panelMiddle";
             this.panelMiddle.Size = new System.Drawing.Size(676, 472);
             this.panelMiddle.TabIndex = 2;
+            this.panelMiddle.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMiddle_Paint);
             // 
             // HomeUi
             // 

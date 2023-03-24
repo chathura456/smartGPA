@@ -18,14 +18,14 @@ namespace SmartGPA.Pages
         private Random random;
         private int tempIndex;
         private Form activeForm;
-        private LoadFileData loadFileData;
+        private CsvCrud loadFileData;
 
 
         public HomeUi()
         {
             InitializeComponent();
             random= new Random();
-            loadFileData = new LoadFileData();
+            loadFileData = new CsvCrud();
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -200,6 +200,11 @@ namespace SmartGPA.Pages
         private void btnClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void panelMiddle_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

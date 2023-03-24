@@ -15,14 +15,14 @@ namespace SmartGPA.Pages
     public partial class Home : Form
     {
         private HomeUi _form1;
-        private LoadFileData loadFileData;
+        private CsvCrud loadFileData;
         string gpa = "0.00";
         BackgroundWorker backgroundWorker1;
         public Home(HomeUi form1)
         {
             InitializeComponent();
             _form1 = form1;
-            loadFileData = new LoadFileData();
+            loadFileData = new CsvCrud();
             Shown += new EventHandler(Form1_Shown);
             backgroundWorker1= new BackgroundWorker();
             // To report progress from the background worker we need to set this property

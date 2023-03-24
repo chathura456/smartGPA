@@ -26,7 +26,8 @@ namespace SmartGPA.Pages
         public int year, semester, credit;
         private List<Subject> subjects;
         private string filename = "subjects.csv";
-        private LoadFileData loadFileData;
+        private CsvCrud csvCrud
+            ;
         private HomeUi _form1;
 
         public Grades(HomeUi form1)
@@ -35,13 +36,13 @@ namespace SmartGPA.Pages
             _form1 = form1;
             // Initialize the subjects list and bind it to the DataGridView
             //subjects = new List<Subject>();
-            loadFileData = new LoadFileData();
+            csvCrud = new CsvCrud();
         }
 
         private void Grades_Load(object sender, EventArgs e)
         {
-            loadFileData.LoadData();
-            subjects = loadFileData.GetSubjects();
+            csvCrud.LoadData();
+            subjects = csvCrud.GetSubjects();
 
             labelListLoad();
 
@@ -138,13 +139,15 @@ namespace SmartGPA.Pages
                     Grade = grade,
                     Points = GetPointsForGrade(grade.ToString()),
                 };
-
+                
                 // Add the subject to the list and bind the list to the DataGridView
-                subjects.Add(subject);
+               csvCrud.SaveData(subject);
+                // subjects.Add(subject);
+                
                 /* dataGridView1.DataSource = null;
                  dataGridView1.DataSource = subjects;*/
 
-                using (StreamWriter writer = new StreamWriter(filename))
+                /*using (StreamWriter writer = new StreamWriter(filename))
                 {
                     foreach (Subject subject0 in subjects)
                     {
@@ -152,7 +155,7 @@ namespace SmartGPA.Pages
                         writer.WriteLine(line);
                     }
                 }
-
+                */
 
                 /*
 
@@ -261,7 +264,7 @@ namespace SmartGPA.Pages
             }
 
             // Load the data from the CSV file
-            loadFileData.LoadData();
+            csvCrud.LoadData();
 
             // Group the subjects by year and semester
             var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
@@ -421,50 +424,16 @@ namespace SmartGPA.Pages
         {
             // Check if the clicked cell is a button cell
             if (e.ColumnIndex == 4 && e.RowIndex >= 0)
-            {/*
-                // Get the subject from the corresponding row
-                Subject subject = subjects[e.RowIndex];
-
-                // Show a form to edit the subject
-                EditSubjectForm editForm = new EditSubjectForm(subject);
-                if (editForm.ShowDialog() == DialogResult.OK)
-                {
-                    // Update the subject with the edited values
-                    subject.Name = editForm.SubjectName;
-                    subject.Credits = editForm.SubjectCredits;
-                    subject.Grade = editForm.SubjectGrade;
-                    subject.Points = editForm.SubjectPoints;
-
-                    // Refresh the DataGridView to show the updated values
-                    UpdateDataGridView();
-                }*/
+            {
             }
             else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
                 // Confirm that the user wants to delete the subject
           
                 if (MessageBox.Show("Are You want to delete this user record?", "Delete Subject", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
-                {// Remove the subject from the list and refresh the DataGridView
-                 // Get the subject in the selected row
-                    Subject subject = (Subject)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+                {
 
-                    // Delete the subject from the subjects list
-                    subjects.Remove(subject);
-
-                    // Delete the subject from the CSV file
-                    string csvFilePath = filename;
-                    string[] csvLines = File.ReadAllLines(csvFilePath);
-                    List<string> csvLinesList = csvLines.ToList();
-                    int rowToDeleteIndex = csvLinesList.FindIndex(line => 
-                    line.Contains($"{subject.Name},{subject.Credits},{subject.Grade}"));
-                    if (rowToDeleteIndex >= 0)
-                    {
-                        csvLinesList.RemoveAt(rowToDeleteIndex);
-                        File.WriteAllLines(csvFilePath, csvLinesList);
-                    }
-
-                    // Update the DataGridView
-                    UpdateDataGridView();
+                    
                 }
                 
                
@@ -521,8 +490,8 @@ namespace SmartGPA.Pages
             subjects.Clear();
 
             // Load the data from the CSV file
-            loadFileData.LoadData();
-            _form1.SetGpaLabelText(loadFileData.CalculateGPA());
+            csvCrud.LoadData();
+            _form1.SetGpaLabelText(csvCrud.CalculateGPA());
 
             if (dataGridView1.Columns["YearData"] != null)
             {
@@ -581,8 +550,8 @@ namespace SmartGPA.Pages
             subjects.Clear();
 
             // Load the data from the CSV file
-            loadFileData.LoadData();
-            _form1.SetGpaLabelText(loadFileData.CalculateGPA());
+            csvCrud.LoadData();
+            _form1.SetGpaLabelText(csvCrud.CalculateGPA());
 
             var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
 

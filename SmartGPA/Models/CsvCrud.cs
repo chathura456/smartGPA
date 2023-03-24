@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SmartGPA.Models
 {
-    public class LoadFileData
+    public class CsvCrud
     {
         private List<Subject> subjects = new List<Subject>();
         private string filename = "subjects.csv";
 
-
-        public LoadFileData() 
+        public CsvCrud() 
         { 
            LoadData();
         }
@@ -22,6 +22,23 @@ namespace SmartGPA.Models
         public List<Subject> GetSubjects()
         {
             return subjects;
+        }
+
+        public void SaveData(Subject sbj)
+        {
+            // Add the subject to the list and bind the list to the DataGridView
+            subjects.Add(sbj);
+            /* dataGridView1.DataSource = null;
+             dataGridView1.DataSource = subjects;*/
+
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                foreach (Subject subject0 in subjects)
+                {
+                    string line = $"{subject0.Year},{subject0.Semester},{subject0.Name},{subject0.Credits},{subject0.Grade},{subject0.Points}";
+                    writer.WriteLine(line);
+                }
+            }
         }
 
         public void LoadData()
@@ -60,6 +77,8 @@ namespace SmartGPA.Models
 
             return ($"{gpa.ToString("F2")}");
         }
+
+
 
 
     }
