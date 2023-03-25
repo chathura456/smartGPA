@@ -444,6 +444,9 @@ namespace SmartGPA.Pages
             }
             else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
+                deleteForm.name = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                deleteForm.year = year;
+                deleteForm.sem = semester;
                 deleteForm.ShowDialog();
             }
         }
@@ -456,8 +459,10 @@ namespace SmartGPA.Pages
                 updateForm.ShowDialog();
             }
             else if (e.ColumnIndex == 6 && e.RowIndex >= 0)
-            {
-             deleteForm.ShowDialog();
+            {   
+                deleteForm.yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                deleteForm.name = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                deleteForm.ShowDialog();
             }
         }
 
@@ -494,7 +499,7 @@ namespace SmartGPA.Pages
             }
         }
 
-        private void UpdateDataGridView()
+        public void UpdateDataGridView()
         {
             // Clear the existing rows
             dataGridView1.Rows.Clear();
@@ -557,7 +562,7 @@ namespace SmartGPA.Pages
 
         }
 
-        private void getAllDatatoTable()
+        public void getAllDatatoTable()
         {
             // Clear the existing rows
             dataGridView2.Rows.Clear();
@@ -573,7 +578,11 @@ namespace SmartGPA.Pages
 
             // Load the data from the CSV file
             csvCrud.LoadData();
-            _form1.SetGpaLabelText(csvCrud.CalculateGPA());
+            if(csvCrud.CalculateGPA() != "" )
+            {
+                _form1.SetGpaLabelText(csvCrud.CalculateGPA());
+            }
+            
 
             var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
 

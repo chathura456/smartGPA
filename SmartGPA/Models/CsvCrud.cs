@@ -41,6 +41,18 @@ namespace SmartGPA.Models
             }
         }
 
+        public void SaveAllData(List<Subject> subjects1)
+        {
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                foreach (Subject subject in subjects1)
+                {
+                    string line = $"{subject.Year},{subject.Semester},{subject.Name},{subject.Credits},{subject.Grade},{subject.Points}";
+                    writer.WriteLine(line);
+                }
+            }
+        }
+
         public void LoadData()
         {
             // Read the contents of the "subjects.csv" file and populate the subjects list
@@ -65,6 +77,40 @@ namespace SmartGPA.Models
                     subjects.Add(subject);
                 }
             }
+        }
+
+        public void UpdateData(int year, int semester, string name, int credits, string grade, double points)
+        {
+            // Find the subject to update in the subjects list
+            Subject subjectToUpdate = subjects.FirstOrDefault(s => s.Year == year && s.Semester == semester && s.Name == name);
+            if (subjectToUpdate == null)
+            {
+                throw new Exception("Subject not found");
+            }
+
+            // Update the subject's properties
+            subjectToUpdate.Credits = credits;
+            subjectToUpdate.Grade = grade;
+            subjectToUpdate.Points = points;
+
+            // Save the updated data to the CSV file
+            SaveAllData(subjects);
+        }
+
+        public void DeleteData(int year, int semester, string name)
+        {
+            // Find the subject to delete in the subjects list
+            Subject subjectToDelete = subjects.FirstOrDefault(s => s.Year == year && s.Semester == semester && s.Name == name);
+            if (subjectToDelete == null)
+            {
+                throw new Exception("Subject not found");
+            }
+
+            // Remove the subject from the subjects list
+            subjects.Remove(subjectToDelete);
+
+            // Save the updated data to the CSV file
+            SaveAllData(subjects);
         }
 
         public string CalculateGPA()
