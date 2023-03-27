@@ -117,7 +117,9 @@ namespace SmartGPA.Pages
         //update button
         private void update_button_Click(object sender, EventArgs e)
         {
-            if(year!=0 && semester!=0 && credit!=0 && grade != null && name != null)
+            DialogResult= DialogResult.OK;
+            this.Close();
+           /* if (year!=0 && semester!=0 && credit!=0 && grade != null && name != null)
             {
                 name1 = name_input.Text.Trim();
                 double points1 = GetPointsForGrade(grade1);
@@ -129,11 +131,26 @@ namespace SmartGPA.Pages
                 sbj.Grade = grade1;
                 sbj.Credits = credit1;
                 csvCrud.UpdateSubject(year, semester, name, credit, grade, sbj);
-                _parent.UpdateDataGridView();
-                _parent.getAllDatatoTable();
+                // _parent.UpdateDataGridView();
+                //_parent.getAllDatatoTable();
                 this.Close();
-            }
+            }*/
 
+        }
+
+        public Subject GetUpdatedSubject()
+        {
+            name1 = name_input.Text.Trim();
+            double points1 = GetPointsForGrade(grade1);
+            return new Subject
+            {
+                Name = name1,
+                Credits = credit1,
+                Grade = grade1,
+                Points = points1,
+                Year = year1,
+                Semester = semester1
+            };
         }
 
         //cancel button

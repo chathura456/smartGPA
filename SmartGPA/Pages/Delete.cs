@@ -20,12 +20,14 @@ namespace SmartGPA.Pages
         public int year, sem;
         private CsvCrud csvCrud;
         private string filename = "subjects.csv";
+        public bool response;
 
         public Delete(Grades parent)
         {
             InitializeComponent();
             _parent = parent;
             csvCrud = new CsvCrud(filename);
+            response= false;
         }
 
         private void Delete_Load(object sender, EventArgs e)
@@ -36,11 +38,14 @@ namespace SmartGPA.Pages
 
         private void cancel_btn_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
         private void confirm_button_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.OK;
+            response = true;
                 if (yearData != null)
                 {
                     // Extract the year and semester values from the YearData column using a regex pattern
@@ -59,11 +64,12 @@ namespace SmartGPA.Pages
                     
                 }
                 else
+
                 {/*
                     csvCrud.DeleteSubject(year, sem, name);
                     _parent.UpdateDataGridView();
                     this.Close();*/
-                bool subjectDeleted = csvCrud.DeleteSubject(year, sem, name);
+              /* bool subjectDeleted = csvCrud.DeleteSubject(year, sem, name);
                 if (subjectDeleted)
                 {
                     _parent.UpdateDataGridView();
@@ -72,7 +78,7 @@ namespace SmartGPA.Pages
                 else
                 {
                     MessageBox.Show("Subject not found");
-                }
+                }*/
             }
    
         this.Close();

@@ -8,12 +8,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
+using System.Xml.Linq;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Point = System.Drawing.Point;
 
@@ -445,30 +447,44 @@ namespace SmartGPA.Pages
             // Check if the clicked cell is a button cell
             if (e.ColumnIndex == 4 && e.RowIndex >= 0)
             {
+                var name00 = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                var grade00 = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                var credit00 = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
                 updateForm.year = year;
                 updateForm.semester = semester;
-                updateForm.name = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-                updateForm.grade = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                updateForm.credit = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
-                updateForm.ShowDialog();
+                updateForm.name = name00;
+                updateForm.grade = grade00;
+                updateForm.credit = credit00;
+                DialogResult result = updateForm.ShowDialog();
+
+                // If the user clicked the Update button in the update form, update the subject in the CSV file and refresh the DataGridView
+                if (result == DialogResult.OK)
+                {
+                    Subject updatedSubject = updateForm.GetUpdatedSubject();
+                    csvCrud.UpdateSubject(year, semester, name00, credit00, grade00, updatedSubject);
+                    UpdateDataGridView();
+                }
             }
             else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
                 /* deleteForm.name = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                  deleteForm.year = year;
                  deleteForm.sem = semester;*/
+                DialogResult dialogResult = deleteForm.ShowDialog();
+                if (dialogResult == DialogResult.OK) {
+                    bool subjectDeleted = csvCrud.DeleteSubject(year, semester, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    // deleteForm.ShowDialog();
+                    if (subjectDeleted)
+                    {
+                        UpdateDataGridView();
 
-                bool subjectDeleted = csvCrud.DeleteSubject(year, semester, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-                // deleteForm.ShowDialog();
-                if (subjectDeleted)
-                {
-                    UpdateDataGridView();
-
+                    }
+                    else
+                    {
+                        MessageBox.Show("Subject not found");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Subject not found");
-                }
+               
             }
         }
 
@@ -477,17 +493,71 @@ namespace SmartGPA.Pages
             // Check if the clicked cell is a button cell
             if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
-                updateForm.yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
-                updateForm.name = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
-                updateForm.grade = dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString();
-                updateForm.credit = int.Parse(dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString());
-                updateForm.ShowDialog();
+                var yearData1 = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string pattern = @"Year\s+(\d+),\s+Semester\s+(\d+)";
+                Match match = Regex.Match(yearData1, pattern);
+                if (!match.Success)
+                {
+                    throw new ArgumentException("Invalid yearData format");
+                }
+                int year0 = int.Parse(match.Groups[1].Value);
+                int semester0 = int.Parse(match.Groups[2].Value);
+
+                var name0 = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                var grade0 = dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString();
+                var credit0 = int.Parse(dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString());
+
+                updateForm.year= year0;
+                updateForm.semester= semester0;
+                updateForm.name = name0;
+                updateForm.grade = grade0;
+                updateForm.credit = credit0;
+                DialogResult result = updateForm.ShowDialog();
+
+
+
+                // If the user clicked the Update button in the update form, update the subject in the CSV file and refresh the DataGridView
+                if (result == DialogResult.OK)
+                {
+                    Subject updatedSubject = updateForm.GetUpdatedSubject();
+                    csvCrud.UpdateSubject(year0, semester0, name0, credit0, grade0, updatedSubject);
+                    getAllDatatoTable();
+                }
+
+
             }
             else if (e.ColumnIndex == 6 && e.RowIndex >= 0)
             {
-                deleteForm.yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                /*deleteForm.yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
                 deleteForm.name = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
-                deleteForm.ShowDialog();
+                deleteForm.ShowDialog();*/
+                // Extract the year and semester values from the YearData column using a regex pattern
+                var yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string name1 = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string pattern = @"Year\s+(\d+),\s+Semester\s+(\d+)";
+                Match match = Regex.Match(yearData, pattern);
+                if (!match.Success)
+                {
+                    throw new ArgumentException("Invalid yearData format");
+                }
+                int year1 = int.Parse(match.Groups[1].Value);
+                int semester1 = int.Parse(match.Groups[2].Value);
+                DialogResult dialogResult1 = deleteForm.ShowDialog();
+                if (dialogResult1 == DialogResult.OK)
+                {
+                    bool subjectDeleted1 = csvCrud.DeleteSubject(year1, semester1, name1);
+                    // deleteForm.ShowDialog();
+                    if (subjectDeleted1)
+                    {
+                        getAllDatatoTable();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Subject not found");
+                    }
+                }
+
             }
         }
 

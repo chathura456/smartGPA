@@ -21,3 +21,4 @@ E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.exe
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.pdb
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Update.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Delete.resources
+E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Info.resources

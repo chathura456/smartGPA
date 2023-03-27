@@ -136,6 +136,9 @@
     <EmbeddedResource Include="Pages\HomeUi.resx">
       <DependentUpon>HomeUi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Info.resx">
+      <DependentUpon>Info.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
