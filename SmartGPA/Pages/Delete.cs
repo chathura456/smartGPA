@@ -19,12 +19,13 @@ namespace SmartGPA.Pages
         public string name, yearData;
         public int year, sem;
         private CsvCrud csvCrud;
+        private string filename = "subjects.csv";
 
         public Delete(Grades parent)
         {
             InitializeComponent();
             _parent = parent;
-            csvCrud = new CsvCrud();
+            csvCrud = new CsvCrud(filename);
         }
 
         private void Delete_Load(object sender, EventArgs e)
@@ -52,17 +53,27 @@ namespace SmartGPA.Pages
                     int year1 = int.Parse(match.Groups[1].Value);
                     int semester1 = int.Parse(match.Groups[2].Value);
 
-                    csvCrud.DeleteData(year1, semester1, name);
+                    csvCrud.DeleteSubject(year1, semester1, name);
                     _parent.getAllDatatoTable();
                     this.Close();
                     
                 }
                 else
+                {/*
+                    csvCrud.DeleteSubject(year, sem, name);
+                    _parent.UpdateDataGridView();
+                    this.Close();*/
+                bool subjectDeleted = csvCrud.DeleteSubject(year, sem, name);
+                if (subjectDeleted)
                 {
-                    csvCrud.DeleteData(year, sem, name);
                     _parent.UpdateDataGridView();
                     this.Close();
                 }
+                else
+                {
+                    MessageBox.Show("Subject not found");
+                }
+            }
    
         this.Close();
             

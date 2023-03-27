@@ -25,11 +25,11 @@ namespace SmartGPA.Pages
         public string grade, name;
         public int year, semester, credit;
         private List<Subject> subjects;
-        private string filename = "subjects.csv";
         private CsvCrud csvCrud;
         private HomeUi _form1;
         private Update updateForm;
         private Delete deleteForm;
+        private string filename = "subjects.csv";
 
         public Grades(HomeUi form1)
         {
@@ -37,7 +37,7 @@ namespace SmartGPA.Pages
             _form1 = form1;
             // Initialize the subjects list and bind it to the DataGridView
             //subjects = new List<Subject>();
-            csvCrud = new CsvCrud();
+            csvCrud = new CsvCrud(filename);
             updateForm = new Update(this);
             deleteForm = new Delete(this);
         }
@@ -46,8 +46,8 @@ namespace SmartGPA.Pages
         {
             csvCrud.LoadData();
             subjects = csvCrud.GetSubjects();
-            updateForm.MaximizeBox= false;
-            updateForm.MinimizeBox= false;
+            updateForm.MaximizeBox = false;
+            updateForm.MinimizeBox = false;
 
             labelListLoad();
 
@@ -60,8 +60,8 @@ namespace SmartGPA.Pages
             this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = ThemeColor.PrimaryColor;
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.ColumnHeadersHeight = 40;
-            this.dataGridView1.Columns[4].HeaderText= "";
-            this.dataGridView1.Columns[5].HeaderText= "";
+            this.dataGridView1.Columns[4].HeaderText = "";
+            this.dataGridView1.Columns[5].HeaderText = "";
 
             this.dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = ThemeColor.PrimaryColor;
             this.dataGridView2.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -128,7 +128,7 @@ namespace SmartGPA.Pages
         //add results button
         private void add_results_Click(object sender, EventArgs e)
         {
-            if(name_input.Text == "")
+            if (name_input.Text == "")
             {
                 errorProvider1.Clear();
                 name_input.Focus();
@@ -153,9 +153,9 @@ namespace SmartGPA.Pages
                     Grade = grade,
                     Points = GetPointsForGrade(grade.ToString()),
                 };
-               
+
                 //add data to csv file 
-                csvCrud.SaveData(subject);
+                csvCrud.AddSubject(subject);
 
                 // Update the DataGridView with the list of subjects
                 UpdateDataGridView();
@@ -163,6 +163,7 @@ namespace SmartGPA.Pages
                 //clear inputs
                 clearResults();
             }
+
         }
 
         //clear results inputs
@@ -172,7 +173,7 @@ namespace SmartGPA.Pages
             credit_dropdown.SelectedItem = 3;
             grade_dropdown.SelectedIndex = -1;
             name = "";
-            grade= null;
+            grade = null;
             credit = 0;
         }
 
@@ -189,6 +190,9 @@ namespace SmartGPA.Pages
 
             semester_dropdown.SelectedIndex = -1;
             semester = 0;
+
+            csvCrud.LoadData();
+            subjects = csvCrud.GetSubjects();
 
             labelListLoad();
         }
@@ -271,12 +275,13 @@ namespace SmartGPA.Pages
 
             // Load the data from the CSV file
             csvCrud.LoadData();
+            var subjects1 = csvCrud.GetSubjects();
 
             // Group the subjects by year and semester
-            var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
+            var groups = subjects1.GroupBy(s => new { s.Year, s.Semester });
 
             // Create a label for each year and semester and add it to the year_panel
-            foreach (var group in groups.OrderBy(g => g.Key.Semester).ThenBy(g => g.Key.Year))
+            foreach (var group in groups.OrderBy(g => g.Key.Year).ThenBy(g => g.Key.Semester))
             {
                 newLabelCreate(group.Key.Year, group.Key.Semester);
             }
@@ -289,7 +294,7 @@ namespace SmartGPA.Pages
             top = 47;
             foreach (Control control in year_panel.Controls.OfType<Label>())
             {
-                if (control != label3 && control != label1 && control != label2 && control != label7 && control!= label8)
+                if (control != label3 && control != label1 && control != label2 && control != label7 && control != label8)
                 {
                     control.Location = new Point(3, top);
                     //control.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -371,7 +376,7 @@ namespace SmartGPA.Pages
             {
                 grade = grade_dropdown.SelectedItem.ToString();
             }
-            
+
         }
 
         private void credit_dropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -411,7 +416,7 @@ namespace SmartGPA.Pages
             year_panel.Visible = false;
             year_label.Text = "All Results";
             //536,337
-            
+
             if (subjects != null && subjects.Any())
             {
                 getAllDatatoTable();
@@ -422,7 +427,7 @@ namespace SmartGPA.Pages
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
 
-         
+
         }
 
         private void label7_MouseEnter(object sender, EventArgs e)
@@ -440,14 +445,30 @@ namespace SmartGPA.Pages
             // Check if the clicked cell is a button cell
             if (e.ColumnIndex == 4 && e.RowIndex >= 0)
             {
+                updateForm.year = year;
+                updateForm.semester = semester;
+                updateForm.name = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                updateForm.grade = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                updateForm.credit = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
                 updateForm.ShowDialog();
             }
             else if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
-                deleteForm.name = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-                deleteForm.year = year;
-                deleteForm.sem = semester;
-                deleteForm.ShowDialog();
+                /* deleteForm.name = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                 deleteForm.year = year;
+                 deleteForm.sem = semester;*/
+
+                bool subjectDeleted = csvCrud.DeleteSubject(year, semester, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                // deleteForm.ShowDialog();
+                if (subjectDeleted)
+                {
+                    UpdateDataGridView();
+
+                }
+                else
+                {
+                    MessageBox.Show("Subject not found");
+                }
             }
         }
 
@@ -456,10 +477,14 @@ namespace SmartGPA.Pages
             // Check if the clicked cell is a button cell
             if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
+                updateForm.yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                updateForm.name = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                updateForm.grade = dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString();
+                updateForm.credit = int.Parse(dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString());
                 updateForm.ShowDialog();
             }
             else if (e.ColumnIndex == 6 && e.RowIndex >= 0)
-            {   
+            {
                 deleteForm.yearData = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
                 deleteForm.name = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
                 deleteForm.ShowDialog();
@@ -499,20 +524,20 @@ namespace SmartGPA.Pages
             }
         }
 
+
         public void UpdateDataGridView()
         {
             // Clear the existing rows
             dataGridView1.Rows.Clear();
-            
+
             dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
             dataGridView1.GridColor = System.Drawing.Color.White;
-           // dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
+            // dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
             dataGridView1.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             dataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.00F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridView1.RowTemplate.SetValues(Height, true);
-    
-            
+
             // Clear the existing subjects
             subjects.Clear();
 
@@ -525,42 +550,23 @@ namespace SmartGPA.Pages
                 dataGridView1.Columns.Remove("YearData");
             }
 
-                // Add the rows for each subject in the list
-                /* foreach (var subject in subjects)
-                 {
-                     dataGridView1.Rows.Add(
-                         subject.Name,
-                         subject.Credits,
-                         subject.Grade,
-                         subject.Points
-                     );
-                 }*/
+            // Filter the subjects by the selected year and semester
+            var filteredSubjects = subjects.Where(s => s.Year == year && s.Semester == semester);
 
-                var groups = subjects.GroupBy(s => new { s.Year, s.Semester });
-            foreach (var group in groups)
+            // Add the rows for each subject in the filtered list
+            foreach (var subject in filteredSubjects)
             {
-                /*DataGridViewRow subheadingRow = new DataGridViewRow();
-                subheadingRow.CreateCells(dataGridView1);
-                //subheadingRow.SetValues($"Year {group.Key.Year}, Semester {group.Key.Semester}");
-                subheadingRow.Cells[0].Dispose();
-                //subheadingRow.DefaultCellStyle.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);
-                dataGridView1.Rows.Add(subheadingRow);*/
-
-                if ((group.Key.Year) == year && (group.Key.Semester) == semester)
-                {
-                    foreach (Subject s in group)
-                    {
-                        DataGridViewRow row = new DataGridViewRow();
-                        row.CreateCells(dataGridView1);
-                        row.SetValues(s.Name, s.Credits, s.Grade, s.Points);
-                        dataGridView1.Rows.Add(row);
-                    }
-
-                    // Add the subjects in the group as regular rows
-                }
+                dataGridView1.Rows.Add(
+                    subject.Name,
+                    subject.Credits,
+                    subject.Grade,
+                    subject.Points
+                );
             }
-
         }
+
+
+
 
         public void getAllDatatoTable()
         {
@@ -630,3 +636,4 @@ namespace SmartGPA.Pages
         }
     }
 }
+

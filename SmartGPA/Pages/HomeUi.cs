@@ -19,13 +19,14 @@ namespace SmartGPA.Pages
         private int tempIndex;
         private Form activeForm;
         private CsvCrud loadFileData;
+        private string filename = "subjects.csv";
 
 
         public HomeUi()
         {
             InitializeComponent();
             random= new Random();
-            loadFileData = new CsvCrud();
+            loadFileData = new CsvCrud(filename);
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]

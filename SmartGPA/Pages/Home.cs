@@ -18,11 +18,12 @@ namespace SmartGPA.Pages
         private CsvCrud loadFileData;
         string gpa = "0.00";
         BackgroundWorker backgroundWorker1;
+        private string filename = "subjects.csv";
         public Home(HomeUi form1)
         {
             InitializeComponent();
             _form1 = form1;
-            loadFileData = new CsvCrud();
+            loadFileData = new CsvCrud(filename);
             Shown += new EventHandler(Form1_Shown);
             backgroundWorker1= new BackgroundWorker();
             // To report progress from the background worker we need to set this property
