@@ -19,7 +19,7 @@ namespace SmartGPA.Pages
         private int tempIndex;
         private Form activeForm;
         private CsvCrud loadFileData;
-        private string filename = "subjects.csv";
+        private string filename = GlobalVariables.CsvFilePath;
 
 
         public HomeUi()

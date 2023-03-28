@@ -26,7 +26,19 @@ namespace SmartGPA
         "#FFA500",
         "#008000",
         "#0000FF",
-        "#08A04B"
+        "#08A04B",
+        "#C147E9",
+        "#C060A1",
+        "#E94560",
+        "#FF1E56",
+        "#FF0000",
+        "#A7D129",
+        "#9153F4",
+        "#FFD717",
+        "#FD2E2E",
+        "#106EE8",
+        "#5902EC",
+        "#033FFF"
         };
 
         public static Color DarkGrey= Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));

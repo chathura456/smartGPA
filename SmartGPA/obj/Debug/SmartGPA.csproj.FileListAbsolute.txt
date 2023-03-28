@@ -1,7 +1,5 @@
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.AssemblyReference.cache
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.csproj.SuggestedBindingRedirects.cache
-E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Form1.resources
-E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Form2.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Grades.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.Home.resources
 E:\My_Projects\SmartGPA\SmartGPA\obj\Debug\SmartGPA.Pages.HomeUi.resources

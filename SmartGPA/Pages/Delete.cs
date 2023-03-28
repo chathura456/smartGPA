@@ -19,7 +19,7 @@ namespace SmartGPA.Pages
         public string name, yearData;
         public int year, sem;
         private CsvCrud csvCrud;
-        private string filename = "subjects.csv";
+        private string filename = GlobalVariables.CsvFilePath;
         public bool response;
 
         public Delete(Grades parent)

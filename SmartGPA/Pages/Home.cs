@@ -18,7 +18,7 @@ namespace SmartGPA.Pages
         private CsvCrud loadFileData;
         string gpa = "0.00";
         BackgroundWorker backgroundWorker1;
-        private string filename = "subjects.csv";
+        private string filename = GlobalVariables.CsvFilePath;
         public Home(HomeUi form1)
         {
             InitializeComponent();

@@ -31,7 +31,7 @@ namespace SmartGPA.Pages
         private HomeUi _form1;
         private Update updateForm;
         private Delete deleteForm;
-        private string filename = "subjects.csv";
+        private string filename = GlobalVariables.CsvFilePath;
 
         public Grades(HomeUi form1)
         {
@@ -58,7 +58,7 @@ namespace SmartGPA.Pages
             add_results.BackColor = ThemeColor.PrimaryColor;
             add_year.BackColor = ThemeColor.ChangeColorBrightness(ThemeColor.PrimaryColor, +0.3);
 
-            this.dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = ThemeColor.PrimaryColor;
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.ColumnHeadersHeight = 40;
@@ -599,7 +599,7 @@ namespace SmartGPA.Pages
         {
             // Clear the existing rows
             dataGridView1.Rows.Clear();
-
+            
             dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
             dataGridView1.GridColor = System.Drawing.Color.White;
@@ -619,7 +619,7 @@ namespace SmartGPA.Pages
             {
                 dataGridView1.Columns.Remove("YearData");
             }
-
+            
             // Filter the subjects by the selected year and semester
             var filteredSubjects = subjects.Where(s => s.Year == year && s.Semester == semester);
 
